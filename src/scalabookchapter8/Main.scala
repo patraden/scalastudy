@@ -7,7 +7,7 @@ object Main extends App {
   import myclasses.LongLines
   val width = args(0).toInt
   for (arg <- args.drop(1))
-    LongLines.processFiles(arg, width)
+    LongLines.processFile(arg, width)
 
   // функциональные литералы и функциональные значения
 

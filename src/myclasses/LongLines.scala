@@ -19,7 +19,7 @@ object LongLines {
 
   // another way is to define aux function within another function
 
-  def processFiles(filename: String, width: Int): Unit = {
+  def processFile(filename: String, width: Int): Unit = {
 
     def processLine(line: String): Unit = {
       if (line.length > width)
