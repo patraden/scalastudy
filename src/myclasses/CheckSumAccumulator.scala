@@ -15,7 +15,7 @@ import scala.collection.mutable
 class CheckSumAccumulator {
   private var sum = 0
   var field = 0
-  def add(b: Byte): Unit = {sum += b}
+  def add(b: Byte): Unit = sum += b
   def checksum(): Int = ~(sum & 0xFF) + 1
 }
 
@@ -34,5 +34,6 @@ object CheckSumAccumulator {
       cache += (s -> cs)
       cs
     }
+
   def printCache(): Unit = println(cache)
 }
