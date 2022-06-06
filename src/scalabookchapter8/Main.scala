@@ -1,6 +1,6 @@
 package scalabookchapter8
 
-import java.util.concurrent.CountDownLatch
+//import java.util.concurrent.CountDownLatch
 import scala.annotation.tailrec
 
 object Main extends App {
@@ -9,7 +9,7 @@ object Main extends App {
   for (arg <- args.drop(1))
     LongLines.processFile(arg, width)
 
-  // функциональные литералы и функциональные значения
+  // Functional literals and functional values
 
   // var literal increase
   var increase = (x: Int) => x + 1
@@ -37,9 +37,10 @@ object Main extends App {
   val f = (_ : Int) + (_ : Int)
   println(f(10,14))
 
-  // частично применненая функция и передача набора аргументов
+  // partially applied function and passing set of arguments
   def sum(a: Int, b: Int, c: Int): Int = a + b + c
   println(sum(1,2,3))
+
   val a = sum _ // generates function3 class with method apply which takes all 3 arguments and make a call to sum function
   // println(a(1,2,5)) // use function3 class apply method to create an instance
   println(a.apply(1,2,5)) // use function3 class apply method to create an instance
@@ -75,9 +76,9 @@ object Main extends App {
   println(inc1(10))
   println(inc9999(10))
 
-  /*
+  /**
   * repeatable parameters
-  * inside repetable parameters is a Seq type, e.g. String* = Seq[String]
+  * inside repeatable parameters is a Seq type, e.g. String* = Seq[String]
   * to call list of parameters from random seq you call it with _*
   * name arguments, can name, can ignore name, can do any order with names, can mix - positional first, names second
   * default value for arg
@@ -104,52 +105,53 @@ object Main extends App {
   printTime(divisor = 1000)
 
   /*
-  * reccursion and tail reccursion
-  * functions which call itself as last action in their body are called tailed-reccursive
-  * new stack frame is not created for tailed-reccursive function. The previous one is used
-  * scala/scalac option -g:notailcalls can help better read traces
-  * usage of tailed reccursive is quit limited
+  * recursion and tail recursion
+  * functions which call itself as last action in their body are called tailed-recursive
+  * new stack frame is not created for tailed-recursive function. The previous one is used
+  * scala/scalac option -g:nostalgically can help better read traces
+  * usage of tailed recursive is quit limited
   */
 
   println("--- recursion ---")
 
   //functional style
-  /*
-  def approximate(guess: Double): Double =
-      if (isGoodEnough(guess)) guess
-      else approximate(improve(guess)) //reccursive call is at the end!!!
+//  def approximate(guess: Double): Double =
+//      if (isGoodEnough(guess)) guess
+//      else approximate(improve(guess)) //recursive call is at the end!!!
 
   // imperative style
-  def approximateLoop(initialGuess: Double): Double = {
-      var guess = initialGuess
-      while (!isGoodEnough(guess))
-          guess = improve(guess)
-      guess
-  }
-  */
+//  def approximateLoop(initialGuess: Double): Double = {
+//      var guess = initialGuess
+//      while (!isGoodEnough(guess))
+//          guess = improve(guess)
+//      guess
+//  }
 
-  // tail reccursion will not be applied
+  // tail recursion will not be applied
   def boom(x: Int): Int =
     if (x == 0) throw new Exception("boom!")
     else boom(x - 1) + 1
-  //println(boom(4))
+//  println(boom(4))
 
-  // tail reccursion will be applied
+  // tail recursion will be applied
   @tailrec
   def bang(x: Int): Int =
-    if (x == 0) throw new Exception("boom!")
+    if (x == 0) throw new Exception("Bang!")
     else bang(x - 1)
-  println(bang(4))
+//  println(bang(4))
 
-  // in this example tail-reccursion optimization is not possible
+  // in this example tail-recursion optimization is not possible
   def isEven(x: Int): Boolean =
     if (x == 0) true else isOdd(x - 1)
   def isOdd(x: Int): Boolean =
     if (x == 0) true else isEven(x - 1)
 
   // same applies to calls to functional values. example below will not work!
+  // tail-recursion is applied only then function call itself by name at the end of its body
   val funValue = nestedFun _
   def nestedFun(x: Int) : Unit = {
     if (x != 0) { println(x); funValue(x - 1) }
   }
+
+  println(funValue(5))
 }

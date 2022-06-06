@@ -13,15 +13,21 @@ import scala.annotation.tailrec
 
 class Rational(n: Int, d: Int)
 {
+  // any code directly placed into class body will be added to constructor
   Predef.require(d != 0)
 
   private val g = gcd(n.abs, d.abs)
   val numer: Int = n / g
   val denom: Int = d / g
 
-  override def toString: String = s"""|$numer/$denom""".stripMargin // override def toString: String = s"""|$n/$d""".stripMargin
+  override def toString: String =
+    s"""|$numer/$denom
+        |""".stripMargin
 
-  def this(n: Int) = this(n, 1) // aux contructor for natural numbers
+  // additional constructor for natural numbers
+  // in scala any additional constructor must call another constructor as its first action
+  // in scala super class constructor can be called only in primary constructor
+  def this(n: Int) = this(n, 1)
 
   def add(that: Rational): Rational =
     new Rational(
@@ -71,11 +77,13 @@ class Rational(n: Int, d: Int)
   def / (i: Int): Rational =
     new Rational(this.numer, this.denom * i)
 
+  // this - is a self-link
   def lessThan(that: Rational): Boolean =
     this.numer * that.denom < that.numer * this.denom
 
+  // self-link for this method is mandatory
   def max(that: Rational): Rational =
-    if (this.lessThan(that)) that else this
+    if (lessThan(that)) that else this
 
   @tailrec
   private def gcd(a: Int, b: Int): Int =
