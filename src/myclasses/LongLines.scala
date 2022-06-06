@@ -5,17 +5,15 @@ import scala.io.Source
 object LongLines {
 
   // one way to use private function is to define a private method like below:
-  /*
-  def processFiles(filename: String, width: Int) = {
-      val source = Source.fromFile(filename)
-      for (line <- source.getLines())
-          processLine(filename, width, line)
-  }
+//  def processFiles(filename: String, width: Int) = {
+//      val source = Source.fromFile(filename)
+//      for (line <- source.getLines())
+//          processLine(filename, width, line)
+//  }
 
-  private def processLine(filename: String, width: Int, line: String) = {
+  private def processLine(filename: String, width: Int, line: String) =
       if (line.length > width)
           println(filename + ": " + line.trim)
-  */
 
   // another way is to define aux function within another function
 
