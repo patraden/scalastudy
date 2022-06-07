@@ -1,7 +1,6 @@
 package scalabookchapter9
 
-import java.awt.PrintJob
-import java.io.PrintWriter
+import java.io.{File, PrintWriter}
 
 object Main extends App {
   import myclasses.FileMatcher
@@ -10,7 +9,7 @@ object Main extends App {
   for (file <- filesEnding) println(file)
 
   println("--- Carrying ---")
-  /*
+  /**
   * Каррирование так же как и в лямбда исчислении
   * превращает функцию нескольких аргументов в последовательностей применения лямбда-термов (функций одного аргумента)
   */
@@ -38,11 +37,11 @@ object Main extends App {
   println(twice(_ + 1, 6))
 
   // пример управляющей конструкции (шаблон) открытие-закрытие ресурса, широко применяемый в программировнии
-  // приимуществом такого кода является то, что закрытие файла гарантируется самим методом, а не кодо пользователя
+  // приимуществом такого кода является то, что закрытие файла гарантируется самим методом, а не кодом пользователя
   // данная технология назывыется шаблоно временного пользования (loan pattern)
   // если сделать карринг для двух аргументов, то для каждого из них можно будет использовать {} при вызове
-  /*
-  def withPrinterWriter(file: File)(op: PrintWriter => Unit) = {
+
+  def withPrinterWriter(file: File)(op: PrintWriter => Unit): Unit = {
       val writer = new PrintWriter(file)
       try {
           op(writer)
@@ -50,11 +49,10 @@ object Main extends App {
           writer.close()
       }
   }
-  val file = new File("date.txt")
+  val file = new File("ScalaStudy/src/scalabookchapter9/Main.scala")
   withPrinterWriter(file) {
       writer => writer.println(new java.util.Date)
       }
-  */
 
   // named parameters
   // (by-name) parameters can simplify () => into => making code look more natural
