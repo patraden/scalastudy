@@ -69,9 +69,24 @@ object Element {
   // Element class - super class of ArrayElements
 
   // class ArrayElement(conts: Array[String]) extends Element { // original definition without parametric field
+
+  // IMPORTANT:
+  // In Scala methods and fields belong to a single namespace and
+  // thus we can redefined abstract method without parameters
+  // into field and wise versa. Below subclass does exactly that.
+  // As result, Scala prohibits creation of method and field with same names (Java behaves differently)
+  // Overall, Java has 4 namespaces for Class:
+  // 1. Fields
+  // 2. Methods
+  // 3. Types
+  // 4. Packages
+  // Scala has just 2:
+  // 1. Values (fields, methods, packages and singletons)
+  // 2. Types (class and traits names)
+
   private class ArrayElement(
-                              val contents: Array[String]
-                            ) extends Element { // with parametric field
+                              val contents: Array[String] // with parametric field which redefines abstract method
+                            ) extends Element {
     // def contents: Array[String] = conts
     // val contents: Array[String] = conts // alternative way to define contents as a field
     // Java has 4 namespaces for filed, methods, types and packages. but scala has 2: Values (fields, methods, packages and objects) and Types (class names and treats)
@@ -89,7 +104,7 @@ object Element {
     }
   }
 
-  private class UniformElement (
+  final private class UniformElement (
                                  ch: Char,
                                  override val width: Int,
                                  override val height: Int,

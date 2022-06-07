@@ -4,6 +4,15 @@ object Main extends App {
   import myclasses.Element.elem
   import myclasses.Element
 
+  // parametric fields can be passed through class parameters:
+  class Cat {
+    val dangerous = false
+  }
+  class Tiger(
+             override val dangerous: Boolean,
+             private var age: Int
+             ) extends Cat
+
   val ae = elem(Array("Hello", "world"))
   println(ae.width)
   println(ae.height)
