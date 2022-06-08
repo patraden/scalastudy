@@ -11,7 +11,7 @@ import scala.annotation.tailrec
 * require - is the pre-condition for constructors and methods which helps to guarantee encapsulated data consistency
 */
 
-class Rational(n: Int, d: Int)
+class Rational(n: Int, d: Int) extends Ordered[Rational]
 {
   // any code directly placed into class body will be added to constructor
   Predef.require(d != 0)
@@ -28,6 +28,9 @@ class Rational(n: Int, d: Int)
   // in scala any additional constructor must call another constructor as its first action
   // in scala super class constructor can be called only in primary constructor
   def this(n: Int) = this(n, 1)
+
+  def compare(that: Rational): Int =
+    (this.numer * that.denom) - (that.numer * this.denom)
 
   def add(that: Rational): Rational =
     new Rational(
