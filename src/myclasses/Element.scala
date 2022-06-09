@@ -18,6 +18,7 @@ abstract class Element {
   def above (that: Element): Element = {
     val this1 = this widen that.width
     val that1 = that widen this.width
+    assert(this1.width == that1.width)
     elem(this1.contents ++ that1.contents)
   }
 
@@ -37,7 +38,7 @@ abstract class Element {
       val left = elem(' ', (w - width) / 2, height)
       val right = elem(' ', w - width - left.width, height)
       left beside this beside right
-    }
+    } ensuring(w <= _.width)
 
   def heighten(h: Int): Element =
     if (h <= height) this
@@ -45,7 +46,7 @@ abstract class Element {
       val top = elem(' ', width, (h - height) / 2)
       val bot = elem(' ', width, h - height - top.height)
       top above this above bot
-    }
+    } ensuring(h <= _.height)
 
   override def toString: String = contents mkString "\n"
 }
