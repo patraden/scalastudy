@@ -40,14 +40,14 @@ object Literals extends App {
   //special symbolic literal
   import collection.immutable.Map
   val map = Map(
-    ("n", "\u000A"),
-    ("b", "\u0008"),
-    ("t", "\u0009"),
-    ("f", "\u000C"),
-    ("r", "\u000D"),
-    ("q", "\u0022"),
-    ("qq", "\u0027"),
-    ("sl", "\u005C")
+    ("n", "\\u000A"),
+    ("b", "\\u0008"),
+    ("t", "\\u0009"),
+    ("f", "\\u000C"),
+    ("r", "\\u000D"),
+    ("q", "\\u0022"),
+    ("qq", "\\u0027"),
+    ("sl", "\\u005C")
   )
 
 //  map.foreach(pair => println(pair._2))
@@ -56,12 +56,6 @@ object Literals extends App {
   val hello = "Hello"
   val escapes = "\\\"\'"
   println(escapes)
-
-  val notFormattedString =
-    """Welcome to Ultamix 3000.
-      | Type "HELP" for help.
-      |""".stripMargin
-  println(notFormattedString)
 
   // ident literal
   val s = 'aSymbol
